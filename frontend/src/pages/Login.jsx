@@ -16,47 +16,74 @@ function Login() {
       alert("Login failed");
     }
   };
+  const [mode, setMode] = useState("login");
 
   return (
     <>
-      <div
-        className="btn-group"
-        role="group"
-        aria-label="Basic radio toggle button group"
-      >
-        <input
-          type="radio"
-          className="btn-check"
-          name="btn-login"
-          id="btn-login"
-          autoComplete="off"
-        />
-        <label className="btn btn-outline-primary" for="btn-login">
-          Login
-        </label>
-        <input
-          type="radio"
-          className="btn-check"
-          name="btn-register"
-          id="btn-register"
-          autoComplete="off"
-        />
-        <label className="btn btn-outline-primary" for="btn-register">
-          Register
-        </label>
+      <div className="container d-flex justify-content-center align-items-center vh-100">
+        <div className="card p-4 shadow" style={{ width: "350px" }}>
+          <div
+            className="btn-group w-100 mb-3"
+            role="group"
+            aria-label="Auth toggle"
+          >
+            <input
+              type="radio"
+              className="btn-check"
+              name="auth-mode"
+              id="btn-login"
+              checked={mode === "login"}
+              onChange={() => {
+                setMode("login");
+                navigate("/login");
+              }}
+            />
+
+            <label className="btn btn-custom" htmlFor="btn-login">
+              Login
+            </label>
+
+            <input
+              type="radio"
+              className="btn-check"
+              name="auth-mode"
+              id="btn-register"
+              checked={mode === "register"}
+              onChange={() => {
+                setMode("register");
+                navigate("/register");
+              }}
+            />
+
+            <label className="btn btn-outline-secondary" htmlFor="btn-register">
+              Register
+            </label>
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <input
+                className="form-control"
+                placeholder="Email"
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
+            </div>
+
+            <div className="mb-3">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+              />
+            </div>
+
+            <button className="btn btn-primary w-100" type="submit">
+              Login
+            </button>
+          </form>
+        </div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Email"
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <button type="submit">Login</button>
-      </form>
     </>
   );
 }
